@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client implements Runnable {
-
+	
   private static Socket clientSocket = null;
   private static PrintStream os = null;
   private static DataInputStream is = null;

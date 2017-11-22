@@ -14,7 +14,7 @@ public class Server {
   public static void main(String args[]) {
 
   	int portNumber = 8080;
-    
+
     if (args.length < 1) {
     	System.out.println("Usage: java server <portNumber>\n" + "Now using port number=" + portNumber);
     } else {
@@ -81,6 +81,7 @@ class clientThread extends Thread {
     	}
 
     	os.println("Welcome " + name + "\n");
+      os.println("To send meme, do /meme <filepath>. To quit, do /quit");
     	synchronized (this) {
       	for (int i = 0; i < maxClientsCount; i++) {
         	if (threads[i] != null && threads[i] == this) {
@@ -91,18 +92,37 @@ class clientThread extends Thread {
     	}
 
     	while (true) {
+        boolean image = false;
       	String line = is.readLine();
       	if (line.startsWith("/quit")) {
         		break;
       	}
-        
-        synchronized (this) {
-          for (int i = 0; i < maxClientsCount; i++) {
-            if (threads[i] != null && threads[i].clientName != null) {
-              threads[i].os.println("<" + name + "> " + line);
+
+        if (line.startsWith("/meme")) {
+          image = true;
+        }
+
+        if (image) {
+          //image is being sent
+          synchronized (this) {
+            for (int i = 0; i < maxClientsCount; i++) {
+              if (threads[i] != null && threads[i].clientName != null) {
+                threads[i].os.println("<" + name + "> " + "sent a meme.");
+              }
+            }
+          }
+        } else { 
+          //text message is being sent
+          synchronized (this) {
+            for (int i = 0; i < maxClientsCount; i++) {
+              if (threads[i] != null && threads[i].clientName != null) {
+                threads[i].os.println("<" + name + "> " + line);
+              }
             }
           }
         }
+        
+        
       }
     
       synchronized (this) {
