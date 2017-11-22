@@ -20,50 +20,51 @@ public class Client implements Runnable {
     String host = "localhost";
 
     if (args.length < 2) {
-    	System.out.println("Usage: java client <host> <portNumber>\n" + "Now using host=" + host + ", portNumber=" + portNumber);
+      System.out.println("Usage: java client <host> <portNumber>\n" + "Now using host=" + host + ", portNumber=" + portNumber);
     } else {
-      	host = args[0];
-      	portNumber = Integer.valueOf(args[1]).intValue();
+      host = args[0];
+      portNumber = Integer.valueOf(args[1]).intValue();
     }
 
     try {
-    	clientSocket = new Socket(host, portNumber);
-      	inputLine = new BufferedReader(new InputStreamReader(System.in));
-      	os = new PrintStream(clientSocket.getOutputStream());
-      	is = new DataInputStream(clientSocket.getInputStream());
+	  clientSocket = new Socket(host, portNumber);
+	  inputLine = new BufferedReader(new InputStreamReader(System.in));
+	  os = new PrintStream(clientSocket.getOutputStream());
+	  is = new DataInputStream(clientSocket.getInputStream());
     } catch (UnknownHostException e) {
-      	System.err.println("Don't know about host " + host);
+      System.err.println("Don't know about host " + host);
     } catch (IOException e) {
-      	System.err.println("Couldn't get I/O for the connection to the host " + host);
+      System.err.println("Couldn't get I/O for the connection to the host " + host);
     }
 
     if (clientSocket != null && os != null && is != null) {
-    	try {
-        	new Thread(new Client()).start();
-        	while (!closed) {
-          		os.println(inputLine.readLine().trim());
-        	}
-        	os.close();
-        	is.close();
-        	clientSocket.close();
-      	} catch (IOException e) {
-      		System.out.println("Unable to connect the client socket!");
-
-      	}
+      try {
+      	new Thread(new Client()).start();
+	    while (!closed) {
+	      os.println(inputLine.readLine().trim());
+        }
+	    os.close();
+	   	is.close();
+	    clientSocket.close();
+      } catch (IOException e) {
+      	System.out.println("Unable to connect the client socket!");
+      }
     }
   }
 
   public void run() {
+
   	String responseLine;
+
     try {
-    	while ((responseLine = is.readLine()) != null) {
-        	System.out.println(responseLine);
-        	if (responseLine.indexOf("*** Exiting") != -1)
-          		break;
-      		}
-      	closed = true;
+      while ((responseLine = is.readLine()) != null) {
+        System.out.println(responseLine);
+       	if (responseLine.indexOf("*** Exiting") != -1)
+       	  break;
+      	}
+      closed = true;
     } catch (IOException e) {
-      	System.err.println("Uh oh! Something went wrong...");
+      System.err.println("Uh oh! Something went wrong...");
     }
   }
 }

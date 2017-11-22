@@ -12,39 +12,41 @@ public class Server {
   private static final clientThread[] threads = new clientThread[maxClientsCount];
 
   public static void main(String args[]) {
+
   	int portNumber = 8080;
+    
     if (args.length < 1) {
     	System.out.println("Usage: java server <portNumber>\n" + "Now using port number=" + portNumber);
     } else {
-      	portNumber = Integer.valueOf(args[0]).intValue();
+      portNumber = Integer.valueOf(args[0]).intValue();
     }
 
     try {
-      	serverSocket = new ServerSocket(portNumber);
+      serverSocket = new ServerSocket(portNumber);
     } catch (IOException e) {
     	System.out.println("Something went wrong setting up server socket. Please try again later.");
-      	System.exit(1);
+      System.exit(1);
     }
 
     while (true) {
     	try {
-        	clientSocket = serverSocket.accept();
-        	int i = 0;
-        	for (i = 0; i < maxClientsCount; i++) {
-          		if (threads[i] == null) {
-            		(threads[i] = new clientThread(clientSocket, threads)).start();
-            		break;
-          		}
-        	}
-        	if (i == maxClientsCount) {
-          		PrintStream os = new PrintStream(clientSocket.getOutputStream());
-          		os.println("Server overload. Please try again later.");
-          		os.close();
-          		clientSocket.close();
-        	}
-      	} catch (IOException e) {
-      		System.out.println("Something went wrong establishing clientSocket");
+      	clientSocket = serverSocket.accept();
+      	int i = 0;
+      	for (i = 0; i < maxClientsCount; i++) {
+      		if (threads[i] == null) {
+        		(threads[i] = new clientThread(clientSocket, threads)).start();
+        		break;
+      		}
       	}
+      	if (i == maxClientsCount) {
+        		PrintStream os = new PrintStream(clientSocket.getOutputStream());
+        		os.println("Server overload. Please try again later.");
+        		os.close();
+        		clientSocket.close();
+      	}
+    	} catch (IOException e) {
+    		System.out.println("Something went wrong establishing clientSocket");
+    	}
     }
   }
 }
@@ -59,74 +61,75 @@ class clientThread extends Thread {
   private int maxClientsCount;
 
   public clientThread(Socket clientSocket, clientThread[] threads) {
-    	this.clientSocket = clientSocket;
-    	this.threads = threads;
-    	maxClientsCount = threads.length;
+  	this.clientSocket = clientSocket;
+  	this.threads = threads;
+  	maxClientsCount = threads.length;
   }
 
   public void run() {
-    	int maxClientsCount = this.maxClientsCount;
-    	clientThread[] threads = this.threads;
+    int maxClientsCount = this.maxClientsCount;
+    clientThread[] threads = this.threads;
+    
+    try {
+      is = new DataInputStream(clientSocket.getInputStream());
+      os = new PrintStream(clientSocket.getOutputStream());
+    	String name = "";
+  		while (true) {
+     		os.println("Enter your username.");
+    		name = is.readLine().trim();        		
+        if (name != "") { break; }		
+    	}
 
-    	try {
-      		is = new DataInputStream(clientSocket.getInputStream());
-      		os = new PrintStream(clientSocket.getOutputStream());
-      		String name = "";
-      		while (true) {
-        		os.println("Enter your username.");
-        		name = is.readLine().trim();
-        		if (name != "") { break; }		
-      		}
-
-      		os.println("Welcome " + name + "\n");
-      		synchronized (this) {
-        		for (int i = 0; i < maxClientsCount; i++) {
-          			if (threads[i] != null && threads[i] == this) {
-            			clientName = "@" + name;
-            			break;
-          			}
-        		}
-      		}
-
-      	while (true) {
-        	String line = is.readLine();
-        	if (line.startsWith("/quit")) {
-          		break;
-        	}
-            synchronized (this) {
-            	for (int i = 0; i < maxClientsCount; i++) {
-              		if (threads[i] != null && threads[i].clientName != null) {
-                		threads[i].os.println("<" + name + "> " + line);
-              		}
-            	}
-          	}
-        }
-      
-      synchronized (this) {
+    	os.println("Welcome " + name + "\n");
+    	synchronized (this) {
       	for (int i = 0; i < maxClientsCount; i++) {
-        	if (threads[i] != null && threads[i] != this && threads[i].clientName != null) {
-          		threads[i].os.println("*** The user " + name + " left ***");
-          	}
+        	if (threads[i] != null && threads[i] == this) {
+          	clientName = "@" + name;
+          	break;
+        	}
+      	}
+    	}
+
+    	while (true) {
+      	String line = is.readLine();
+      	if (line.startsWith("/quit")) {
+        		break;
+      	}
+        
+        synchronized (this) {
+          for (int i = 0; i < maxClientsCount; i++) {
+            if (threads[i] != null && threads[i].clientName != null) {
+              threads[i].os.println("<" + name + "> " + line);
+            }
+          }
+        }
+      }
+    
+      synchronized (this) {
+        for (int i = 0; i < maxClientsCount; i++) {
+          if (threads[i] != null && threads[i] != this && threads[i].clientName != null) {
+        		threads[i].os.println("*** The user " + name + " left ***");
+          }
         }
       }
 
       os.println("*** Exiting ***");
 
       synchronized (this) {
-      	for (int i = 0; i < maxClientsCount; i++) {
-        	if (threads[i] == this) {
-            	threads[i] = null;
-            	break;
-          	}
+        for (int i = 0; i < maxClientsCount; i++) {
+          if (threads[i] == this) {
+            threads[i] = null;
+          	break;
+          }
         }
       }
-      
+    
       is.close();
       os.close();
       clientSocket.close();
       System.exit(0);
     } catch (IOException e) {
-    	System.out.println("Uh oh! Something went wrong.");
+      System.out.println("Uh oh! Something went wrong.");
     }
   }
 }
