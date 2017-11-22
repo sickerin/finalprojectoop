@@ -1,8 +1,13 @@
+package server;
+
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.ServerSocket;
+
+import channels.Channel;
+import users.User;
 
 public class Server {
 
@@ -10,6 +15,8 @@ public class Server {
   private static Socket clientSocket = null;
   private static final int maxClientsCount = 50;
   private static final clientThread[] threads = new clientThread[maxClientsCount];
+  private static ArrayList<Channel> channels = new ArrayList<Channel>();
+  Channel defaultChannel = new Channel("random");
 
   public static void main(String args[]) {
 
@@ -28,13 +35,20 @@ public class Server {
       System.exit(1);
     }
 
+    try {
+      channelList.add(defaultChannel);
+      new File("random").mkdir();
+    } catch (Exception io) {
+      io.printStackTrace();
+    }
+
     while (true) {
     	try {
       	clientSocket = serverSocket.accept();
       	int i = 0;
       	for (i = 0; i < maxClientsCount; i++) {
       		if (threads[i] == null) {
-        		(threads[i] = new clientThread(clientSocket, threads)).start();
+        		(threads[i] = new clientThread(clientSocket, threads, defaultChannel)).start();
         		break;
       		}
       	}
@@ -59,11 +73,14 @@ class clientThread extends Thread {
   private Socket clientSocket = null;
   private final clientThread[] threads;
   private int maxClientsCount;
+  Channel userChannel;
+  User user;
 
-  public clientThread(Socket clientSocket, clientThread[] threads) {
+  public clientThread(Socket clientSocket, clientThread[] threads, Channel defaultChannel) {
   	this.clientSocket = clientSocket;
   	this.threads = threads;
   	maxClientsCount = threads.length;
+    this.userChannel = defaultChannel;
   }
 
   public void run() {
@@ -77,7 +94,12 @@ class clientThread extends Thread {
   		while (true) {
      		os.println("Enter your username.");
     		name = is.readLine().trim();        		
-        if (name != "") { break; }		
+        if (name != "") { 
+          user = new User(this.clientSocket, defaultChannel.getName());
+          user.setUsername(name);
+          userChannel.addUser(user)l
+          break; 
+        }		
     	}
 
     	os.println("Welcome " + name + "\n");
@@ -100,6 +122,14 @@ class clientThread extends Thread {
 
         if (line.startsWith("/meme")) {
           image = true;
+        }
+
+        if (line.startsWith("/channels")) {
+          //list channels
+        }
+
+        if (line.startsWith("/change")) {
+          //change channels
         }
 
         if (image) {
