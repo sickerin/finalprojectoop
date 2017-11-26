@@ -4,16 +4,22 @@ package server;
  * 
  */
 
-import java.io.BufferedOutputStream;
+//import java.io.BufferedOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+//import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+//import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -297,10 +303,12 @@ public class Server {
       PrintWriter out = u.getUserOutputStream();
       String[] separate = m.split(" ");
       if (separate.length < 2) {
-        out.println("Failed to send file");
+        //out.println("Failed to send file");
         return;
       }
       String filename = separate[2];
+      
+      //System.out.println("Uploading " + filename);
 
       receiveFile(u.getCurrentChannel(), filename);
     }
@@ -333,41 +341,35 @@ public class Server {
       System.out.println(u.getUsername() + " logout @ " + today);
     }
 
-    public void receiveFile(String channelName, String filename) {
+    public void receiveFile(String channelName, String filename) {  
       try {
         FileOutputStream fos = null;
         int bytesRead;
+        int current = 0;
+        byte[] byteArray = new byte[6022386];
+        InputStream is = clientSocket.getInputStream();
+        BufferedInputStream bis = new BufferedInputStream(is);
+        DataInputStream dis = new DataInputStream(bis);
+        long fileSize = dis.readLong();
         
-        //int current = 0;
-        byte[] byteArray = new byte[1024];
-        InputStream is = null;
-        is = clientSocket.getInputStream();
-        
-        try {
-          fos = new FileOutputStream(filename);
-        } catch (FileNotFoundException fnfe) {
-          System.out.println("Failed to receive file " + filename);
-          return;
-        }
-
+        fos = new FileOutputStream(filename);
         BufferedOutputStream bos = new BufferedOutputStream(fos);
-        //current = bytesRead;
-        while ((bytesRead = is.read(byteArray, 0, byteArray.length)) != -1) {
-          //bytesRead = is.read(byteArray, current, byteArray.length - current);
-          /*
-          if (bytesRead >= 0) {
-            current += bytesRead;
-          }
-          */
+        bytesRead = 0;
+        
+        while (fileSize > 0 && ((bytesRead = dis.read(byteArray, 0, (int)Math.min(byteArray.length, fileSize))) != -1)) {
           bos.write(byteArray, 0, bytesRead);
+          fileSize -= bytesRead;
         }
-        //bos.write(byteArray, 0, current);
+      
+        bos.write(byteArray, 0, current);
+        fos.flush();
         bos.flush();
+        fos.close();
         bos.close();
+        
       } catch (IOException ex) {
         Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      
+      } 
     }
   }
   

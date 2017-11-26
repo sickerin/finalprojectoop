@@ -1,16 +1,24 @@
 package client;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+//import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+//import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+//import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,7 +50,8 @@ public class Client implements Runnable {
 				} else {
 					out.println(nickname + ": " + userInput);
 				}
-				if (userInput.contains(" /upload")) {
+				if (userInput.contains("/upload")) {
+					//out.println(nickname + "is uploading a file");
 					uploadFile(nickname, userInput);
 				}
 			}
@@ -59,10 +68,11 @@ public class Client implements Runnable {
 		String host = "0.0.0.0";
 		int port = 8080;
 		if (args.length < 2) {
-		   System.out.println("Usage: java client <host> <portNumber>\n" + "Now using host=" + host + ", portNumber=" + port);
+		   System.out.println("Now using host=" + host + ", portNumber=" + port);
 		} else {
 		   host = args[0];
 		   port = Integer.valueOf(args[1]).intValue();
+		   System.out.println("Now using host=" + host + ", portNumber=" + port);
 		}
 		
 		new Client(host, port);
@@ -94,31 +104,30 @@ public class Client implements Runnable {
 	}
 
 	public void uploadFile(String nickname, String m) throws IOException {
+		
 		FileInputStream fis = null;
-		BufferedInputStream bis = null;
 		try {
 			String[] separate = m.split(" ");
 			String filename = separate[1];
 			File file = new File(filename);
 			byte[] byteArray = new byte[(int) file.length()];
 			fis = new FileInputStream(file);
-			bis = new BufferedInputStream(fis);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			
 			bis.read(byteArray, 0, byteArray.length);
 			OutputStream os = socket.getOutputStream();
+			DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(os));
 			System.out.println("Sending " + filename + " ...");
-			os.write(byteArray, 0, byteArray.length);
-			os.flush();
+			dos.writeLong(file.length());
+			dos.write(byteArray, 0, byteArray.length);
+			
+			dos.flush();
+			fis.close();
+			bis.close();
 		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+			System.out.println("File not found");
 		} finally {
-			try {
-				bis.close();
-				fis.close();
-			} catch (IOException ex) {
-				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		
+			System.out.println("Sent!");
+		}	
 	}
-
 }
