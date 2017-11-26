@@ -77,10 +77,10 @@ public class Server {
           } else if (message.contains(": /tell")) {
             commandTell(user.getCurrentChannel(), message);
             notifyUserChannel(user);
-          } else if (message.contains(": /listall")) {
+          } else if (message.contains(": /allusers")) {
             commandListAll(user);
             notifyUserChannel(user);
-          } else if (message.contains(": /list")) {
+          } else if (message.contains(": /users")) {
             commandList(user, message);
             notifyUserChannel(user);
           } else if (message.contains(": /join")) {
@@ -89,7 +89,7 @@ public class Server {
           } else if (message.contains(": /channels")) {
             commandChannels(user);
             notifyUserChannel(user);
-          } else if (message.contains(": /up")) {
+          } else if (message.contains(": /upload")) {
             commandUpload(user, message);
             notifyUserChannel(user);
           } else if (message.contains(": /quit")) {
