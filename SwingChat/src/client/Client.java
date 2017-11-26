@@ -1,69 +1,124 @@
-import java.io.DataInputStream;
-import java.io.PrintStream;
+package client;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client implements Runnable {
+	private Socket socket;
+	private String nickname;
+	PrintWriter out;
+	BufferedReader in;
+	BufferedReader stdin;
+	String userInput;
+	boolean login = true;
 
-  private static Socket clientSocket = null;
-  private static PrintStream os = null;
-  private static DataInputStream is = null;
-  private static BufferedReader inputLine = null;
-  private static boolean closed = false;
-  
-  public static void main(String[] args) {
+	public Client(String host, int port) {	
+		try {
+			socket = new Socket(host, port);
+			System.out.println("Connected to " + host + "at port " + port);
+			out = new PrintWriter(socket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-    int portNumber = 8080;
-    String host = "localhost";
+			new Thread(this).start();
 
-    if (args.length < 2) {
-    	System.out.println("Usage: java client <host> <portNumber>\n" + "Now using host=" + host + ", portNumber=" + portNumber);
-    } else {
-      	host = args[0];
-      	portNumber = Integer.valueOf(args[1]).intValue();
-    }
+			System.out.print("LOGIN:> ");
+			stdin = new BufferedReader(new InputStreamReader(System.in));
 
-    try {
-    	clientSocket = new Socket(host, portNumber);
-      	inputLine = new BufferedReader(new InputStreamReader(System.in));
-      	os = new PrintStream(clientSocket.getOutputStream());
-      	is = new DataInputStream(clientSocket.getInputStream());
-    } catch (UnknownHostException e) {
-      	System.err.println("Don't know about host " + host);
-    } catch (IOException e) {
-      	System.err.println("Couldn't get I/O for the connection to the host " + host);
-    }
+			while((userInput = stdin.readLine()) != null) {
+				if (login) {
+					setNickname(userInput);
+					out.println("LOGIN:> " + userInput);
+				} else {
+					out.println(nickname + ": " + userInput);
+				}
+				if (userInput.contains(" /up")) {
+					uploadFile(nickname, userInput);
+				}
+			}
 
-    if (clientSocket != null && os != null && is != null) {
-    	try {
-        	new Thread(new Client()).start();
-        	while (!closed) {
-          		os.println(inputLine.readLine().trim());
-        	}
-        	os.close();
-        	is.close();
-        	clientSocket.close();
-      	} catch (IOException e) {
-      		System.out.println("Unable to connect the client socket!");
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
-      	}
-    }
-  }
+	public static void main(String[] args) {
+		String host = "0.0.0.0";
+		int port = 8080;
+		if (args.length < 2) {
+		   System.out.println("Usage: java client <host> <portNumber>\n" + "Now using host=" + host + ", portNumber=" + port);
+		} else {
+		   host = args[0];
+		   port = Integer.valueOf(args[1]).intValue();
+		}
+		
+		new Client(host, port);
+	}
 
-  public void run() {
-  	String responseLine;
-    try {
-    	while ((responseLine = is.readLine()) != null) {
-        	System.out.println(responseLine);
-        	if (responseLine.indexOf("*** Exiting") != -1)
-          		break;
-      		}
-      	closed = true;
-    } catch (IOException e) {
-      	System.err.println("Uh oh! Something went wrong...");
-    }
-  }
+	@Override
+	public void run() {
+		String serverMessage = null;
+		try {
+			while ((serverMessage = in.readLine()) != null) {
+				System.out.println(serverMessage);
+				if (serverMessage.equals("** You are disconnected")) {
+					socket.close();
+					System.exit(1);
+				}
+				if (serverMessage.equals("** Error: username invalid")) {
+					System.out.print("LOGIN:> ");
+				} else {
+					login = false;
+				}
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public void uploadFile(String nickname, String m) throws IOException {
+		FileInputStream fis = null;
+		BufferedInputStream bis = null;
+		try {
+			String[] separate = m.split(" ");
+			String filename = separate[1];
+			File file = new File(filename);
+			byte[] byteArray = new byte[(int) file.length()];
+			fis = new FileInputStream(file);
+			bis = new BufferedInputStream(fis);
+			bis.read(byteArray, 0, byteArray.length);
+			OutputStream os = socket.getOutputStream();
+			System.out.println("Sending " + filename + " ...");
+			os.write(byteArray, 0, byteArray.length);
+			os.flush();
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				bis.close();
+				fis.close();
+			} catch (IOException ex) {
+				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		
+	}
+
 }
