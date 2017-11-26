@@ -42,7 +42,7 @@ public class Client implements Runnable {
 				} else {
 					out.println(nickname + ": " + userInput);
 				}
-				if (userInput.contains(" /up")) {
+				if (userInput.contains(" /upload")) {
 					uploadFile(nickname, userInput);
 				}
 			}

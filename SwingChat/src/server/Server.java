@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -293,7 +294,12 @@ public class Server {
     }
 
     public void commandUpload(User u, String m) {
+      PrintWriter out = u.getUserOutputStream();
       String[] separate = m.split(" ");
+      if (separate.length < 2) {
+        out.println("Failed to send file");
+        return;
+      }
       String filename = separate[2];
 
       receiveFile(u.getCurrentChannel(), filename);
@@ -331,21 +337,31 @@ public class Server {
       try {
         FileOutputStream fos = null;
         int bytesRead;
-        int current = 0;
-        byte[] byteArray = new byte[6022386];
+        
+        //int current = 0;
+        byte[] byteArray = new byte[1024];
         InputStream is = null;
         is = clientSocket.getInputStream();
-        fos = new FileOutputStream(filename);
+        
+        try {
+          fos = new FileOutputStream(filename);
+        } catch (FileNotFoundException fnfe) {
+          System.out.println("Failed to receive file " + filename);
+          return;
+        }
+
         BufferedOutputStream bos = new BufferedOutputStream(fos);
-        bytesRead = is.read(byteArray, 0, byteArray.length);
-        current = bytesRead;
-        while (bytesRead > -1) {
-          bytesRead = is.read(byteArray, current, byteArray.length - current);
+        //current = bytesRead;
+        while ((bytesRead = is.read(byteArray, 0, byteArray.length)) != -1) {
+          //bytesRead = is.read(byteArray, current, byteArray.length - current);
+          /*
           if (bytesRead >= 0) {
             current += bytesRead;
           }
+          */
+          bos.write(byteArray, 0, bytesRead);
         }
-        bos.write(byteArray, 0, current);
+        //bos.write(byteArray, 0, current);
         bos.flush();
         bos.close();
       } catch (IOException ex) {
