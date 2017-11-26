@@ -1,10 +1,8 @@
-package users;
+package user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-
 
 public class User {
 	private Socket userSocket;
@@ -16,7 +14,11 @@ public class User {
 	public User(Socket socket, String channel) throws IOException {
 		this.userSocket = socket;
 		this.currentChannel = channel;
-		//this.out = new PrintWriter(socket.getOutputStream());
+		this.out = new PrintWriter(socket.getOutputStream());
+	}
+	
+	public Socket getUserSocket() {
+		return this.userSocket;
 	}
 
 	public void setUsername(String name) {
@@ -42,11 +44,9 @@ public class User {
 	public void setCurrentChannel(String channel) {
 		this.currentChannel = channel;
 	}
-
-	/*
+	
 	public PrintWriter getUserOutputStream() {
 		return this.out;
 	}
-	*/
 
 }

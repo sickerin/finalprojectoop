@@ -2,7 +2,7 @@ package channels;
 
 import java.util.*;
 
-import users.User;
+import user.User;
 
 public class Channel {
 	private String name;
@@ -11,7 +11,7 @@ public class Channel {
 	public Channel(String name) {
 		this.name = name;
 		this.users = new HashMap<String, User>();
-=	}
+	}
 
 	public String getName() {
 		return this.name;
@@ -40,8 +40,8 @@ public class Channel {
 	}
 	
 	public String listUsersInChannel() {
-		Set keys = this.users.keySet();
-		Iterator it = keys.iterator();
+		Set<String> keys = this.users.keySet();
+		Iterator<String> it = keys.iterator();
 		String all = "";
 
 		while(it.hasNext()) {
