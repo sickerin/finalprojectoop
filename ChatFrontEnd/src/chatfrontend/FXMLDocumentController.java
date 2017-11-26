@@ -5,9 +5,8 @@
  */
 package chatfrontend;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.*;
+import com.vdurmont.emoji.EmojiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 
 /**
@@ -36,6 +36,35 @@ public class FXMLDocumentController implements Initializable {
     private JFXCheckBox chk_memeify;
     
     @FXML
+    private AnchorPane pn_main;
+
+    @FXML
+    private AnchorPane pn_title;
+
+    @FXML
+    private AnchorPane pn_groups;
+
+    @FXML
+    private AnchorPane pn_chat;
+
+    @FXML
+    private JFXButton btn_testgroup;
+
+    @FXML
+    private AnchorPane pn_tab;
+
+    @FXML
+    private JFXTabPane tb_options;
+
+    @FXML
+    private AnchorPane pn_emoji;
+
+    @FXML
+    void addGroup(ActionEvent event) {
+
+    }
+    
+    @FXML
     private void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btn_upload) {
             FileChooser fileChooser = new FileChooser();
@@ -55,6 +84,9 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        pn_emoji.
+        EmojiManager em = new EmojiManager();
+        
     }    
     
 }

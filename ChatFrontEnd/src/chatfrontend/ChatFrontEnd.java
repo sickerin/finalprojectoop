@@ -5,6 +5,7 @@
  */
 package chatfrontend;
 
+import com.vdurmont.emoji.EmojiManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,9 +21,8 @@ public class ChatFrontEnd extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+                
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
         stage.setMinHeight(680);
         stage.setMinWidth(800);
