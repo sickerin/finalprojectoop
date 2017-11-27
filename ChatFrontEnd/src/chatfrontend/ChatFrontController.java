@@ -24,58 +24,74 @@ import javafx.stage.*;
 public class ChatFrontController implements Initializable {
 
     
+    @FXML
+    private AnchorPane pnMain;
+
+    @FXML
+    private AnchorPane pnTitle;
+
+    @FXML
+    private AnchorPane pnGroups;
+
+    @FXML
+    private JFXListView<Label> listGroup;
     
     @FXML
-    private Label label;
-    
-    @FXML
-    private JFXButton btn_upload;
-    
-    @FXML
-    private JFXListView<Label> list_group;
-   
-    @FXML
-    private JFXCheckBox chk_memeify;
-    
-    @FXML
-    private AnchorPane pn_main;
+    private JFXListView<Label> listChatArea;
 
     @FXML
-    private AnchorPane pn_title;
+    private AnchorPane pnChat;
 
     @FXML
-    private AnchorPane pn_groups;
+    private AnchorPane pnTab;
 
     @FXML
-    private AnchorPane pn_chat;
+    private JFXTabPane tbOptions;
 
     @FXML
-    private JFXButton btn_testgroup;
+    private AnchorPane pnEmoji;
 
     @FXML
-    private AnchorPane pn_tab;
+    private JFXButton btnUpload;
 
     @FXML
-    private JFXTabPane tb_options;
+    private JFXButton btnTestgroup;
 
     @FXML
-    private AnchorPane pn_emoji;
+    private JFXTextArea txtMessageBox;
+
+    @FXML
+    private JFXButton btnSend;
+
+    @FXML
+    private JFXCheckBox chkMemeify;
 
        
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btn_upload) {
+        if (event.getSource() == btnUpload) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
-            fileChooser.showOpenDialog(btn_upload.getScene().getWindow());
-        } else if (event.getSource() == chk_memeify) {
+            fileChooser.showOpenDialog(btnUpload.getScene().getWindow());
+        } else if (event.getSource() == chkMemeify) {
             System.out.println("Chk_memeify");
         }
     }
     
+    //This
+    @FXML public void sendBtnAction() {
+            System.out.println("hi");
+            String content = txtMessageBox.getText();
+            if(!content.isEmpty()){
+//                  need to add code to send message to server.
+                    txtMessageBox.clear();
+                    displayMyMessges(content);
+            }
+	}
+    
     @FXML
     private void addGroup(ActionEvent event){
-        list_group.getItems().add(new Label("Test"));
+        listGroup.getItems().add(new Label("Test"));
     }
        
     
@@ -86,5 +102,9 @@ public class ChatFrontController implements Initializable {
 //        EmojiManager em = new EmojiManager();
 //        
     }    
+
+    private void displayMyMessges(String content) {
+        listChatArea.getItems().add(new Label(content));
+    }
     
 }

@@ -15,10 +15,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -26,24 +29,33 @@ import javafx.scene.layout.AnchorPane;
  */
 public class LoginController implements Initializable {
     
-    @FXML
-    private JFXButton btn_register, btn_login;
-    
-    @FXML
-    private AnchorPane pn_register, pn_login;
-    @FXML
-    private FontAwesomeIconView btn_username;
-    @FXML
-    private JFXTextField usernameField;
+ @FXML
+private JFXButton btnLogin;
+
+@FXML
+private JFXButton btnRegister;
+
+@FXML
+private AnchorPane pnRegister;
+
+@FXML
+private AnchorPane pnLogin;
+
+@FXML
+private FontAwesomeIconView btnUsername;
+
+@FXML
+private JFXTextField usernameField;
+
   
     //blah blah
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btn_login) {
-            pn_login.toFront();
+        if (event.getSource() == btnLogin) {
+            pnLogin.toFront();
         } else {
-            if(event.getSource() == btn_register){
-                pn_register.toFront();
+            if(event.getSource() == btnRegister){
+                pnRegister.toFront();
             }
         }
     }
@@ -53,11 +65,16 @@ public class LoginController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private String btn_username_listener(MouseEvent event) throws IOException {
-        String username = usernameField.getText();
-        Parent chatPage = FXMLLoader.load(getClass().getResource("FXMLDocumentController.fxml"));
-        return username;
-    }
-    
+//    @FXML
+//    private String btnUsernameListener(MouseEvent event) throws IOException {
+//        String username = usernameField.getText();
+//        Parent chatPage = FXMLLoader.load(getClass().getResource("ChatFront.fxml"));
+//        Scene chatScene = new Scene(chatPage);
+//        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        
+//        appStage.hide();
+//        appStage.setScene(chatScene);
+//        appStage.show();
+//        return username;
+//    }
 }

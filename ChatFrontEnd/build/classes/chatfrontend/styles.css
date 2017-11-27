@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 22, 2017, 10:16:09 PM
+    Author     : Daniel
+*/
+/* -------------------------ListGroup-------------------------*/
+.jfx-list-cell:selected {
+    -fx-background-color: #19B5FE;
+}
+
+.jfx-list-cell {
+    -fx-background-insets: 0.0;
+}
+
+.jfx-list-cell .jfx-rippler{
+    -fx-rippler-fill: BLUE;
+}
+
+.jfx-list-cell:hover{
+    -fx-background-color: #29f8ff
+}
+
+/*.jfx-list-view {
+    -fx-background-insets: 0;
+    -fx-cell-vertical-margin: 10.0;
+    -fx-vertical-gap: 10;
+    -fx-pref-width:150;
+}*/

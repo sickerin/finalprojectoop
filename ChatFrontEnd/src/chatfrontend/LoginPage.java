@@ -46,7 +46,7 @@ public class LoginPage extends Application {
             }
         });
               
-        
+ 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
