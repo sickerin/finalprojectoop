@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="pn_main" prefHeight="680.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatfrontend.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="pn_main" prefHeight="680.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatfrontend.ChatFrontController">
    <children>
       <AnchorPane fx:id="pn_title" prefHeight="40.0" prefWidth="804.0" style="-fx-background-color: #19B5FE;" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,16 +28,12 @@
          <items>
             <AnchorPane fx:id="pn_groups" prefHeight="641.0" prefWidth="272.0" style="-fx-background-color: #fff;">
                <children>
-                  <JFXListView fx:id="list_group" prefHeight="641.0" prefWidth="260.0" style="-fx-background-color: #fff;" stylesheets="@styles.css" />
+                  <JFXListView fx:id="list_group" layoutX="1.0" prefHeight="641.0" prefWidth="221.0" style="-fx-background-color: #fff;" stylesheets="@styles.css" />
                </children>
             </AnchorPane>
             <AnchorPane>
                <children>
-                  <AnchorPane fx:id="pn_chat" prefHeight="371.0" prefWidth="534.0" style="-fx-background-color: #C5EFF7;">
-                     <children>
-                        <JFXButton fx:id="btn_testgroup" layoutX="239.0" layoutY="162.0" onAction="#addGroup" text="Button" />
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane fx:id="pn_chat" prefHeight="371.0" prefWidth="534.0" style="-fx-background-color: #C5EFF7;" />
                   <AnchorPane fx:id="pn_tab" layoutY="371.0" prefHeight="270.0" prefWidth="531.0" style="-fx-background-color: #fff;">
                      <children>
                         <JFXTabPane fx:id="tb_options" prefHeight="153.0" prefWidth="534.0" style="-fx-background-color: #19B5FE;">
@@ -46,7 +42,10 @@
                                 <content>
                                   <AnchorPane fx:id="pn_emoji" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="531.0">
                                        <children>
-                                          <JFXMasonryPane prefHeight="116.0" prefWidth="534.0" />
+                                          <JFXMasonryPane prefHeight="116.0" prefWidth="534.0">
+                                             <children>
+                                                <JFXButton fx:id="btn_testgroup" onAction="#addGroup" text="Button" />
+                                             </children></JFXMasonryPane>
                                        </children></AnchorPane>
                                 </content>
                               </Tab>

@@ -21,7 +21,9 @@ import javafx.stage.*;
  *
  * @author Daniel
  */
-public class FXMLDocumentController implements Initializable {
+public class ChatFrontController implements Initializable {
+
+    
     
     @FXML
     private Label label;
@@ -59,11 +61,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private AnchorPane pn_emoji;
 
-    @FXML
-    void addGroup(ActionEvent event) {
-
-    }
-    
+       
     @FXML
     private void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btn_upload) {
@@ -84,9 +82,9 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        pn_emoji.
-        EmojiManager em = new EmojiManager();
-        
+//        pn_emoji.
+//        EmojiManager em = new EmojiManager();
+//        
     }    
     
 }

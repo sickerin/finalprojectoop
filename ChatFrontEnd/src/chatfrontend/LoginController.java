@@ -3,28 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginpage;
+package chatfrontend;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author Daniel
  */
-public class FXMLDocumentController implements Initializable {
+public class LoginController implements Initializable {
     
     @FXML
     private JFXButton btn_register, btn_login;
     
     @FXML
     private AnchorPane pn_register, pn_login;
+    @FXML
+    private FontAwesomeIconView btn_username;
+    @FXML
+    private JFXTextField usernameField;
   
     
     @FXML
@@ -42,5 +52,12 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private String btn_username_listener(MouseEvent event) throws IOException {
+        String username = usernameField.getText();
+        Parent chatPage = FXMLLoader.load(getClass().getResource("FXMLDocumentController.fxml"));
+        return username;
+    }
     
 }
