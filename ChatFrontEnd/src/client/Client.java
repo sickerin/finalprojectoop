@@ -1,5 +1,6 @@
 package client;
 
+import chatfrontend.ChatFrontController;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 //import java.io.BufferedInputStream;
@@ -22,18 +23,25 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import chatfrontend.ChatFrontController;
+import static chatfrontend.LoginController.cf;
+
 public class Client implements Runnable {
 	private Socket socket;
-	private String nickname;
-	PrintWriter out;
+	public static String nickname;
+        public ChatFrontController controller;
+	public static PrintWriter out;
 	BufferedReader in;
 	BufferedReader stdin;
 	String userInput;
 	boolean login = true;
+        
 
-	public Client(String host, int port) {	
+	public Client(String host, int port, String username, ChatFrontController controller) {	
 		try {
 			socket = new Socket(host, port);
+                        this.nickname = username;
+                        this.controller = controller;
 			System.out.println("Connected to " + host + " at port " + port);
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -43,17 +51,28 @@ public class Client implements Runnable {
 			System.out.print("LOGIN:> ");
 			stdin = new BufferedReader(new InputStreamReader(System.in));
 
-			while((userInput = stdin.readLine()) != null) {
+			//while((userInput = stdin.readLine()) != null) {
+                          while ((userInput = in.readLine()) != null) {
+                              //controller.
+                              /*
 				if (login) {
 					setNickname(userInput);
 					out.println("LOGIN:> " + userInput);
-				} else {
+				} 
+                                /*
+                                else {
 					out.println(nickname + ": " + userInput);
 				}
+                                */
+                                /*
 				if (userInput.contains("/upload")) {
 					//out.println(nickname + "is uploading a file");
 					uploadFile(nickname, userInput);
 				}
+                              
+                                add things to the controller
+                                */
+                                
 			}
 
 		} catch (UnknownHostException e) {
@@ -63,20 +82,33 @@ public class Client implements Runnable {
 		}
 		
 	}
-
-	public static void main(String[] args) {
+        
+        public static void send(String msg) {
+            out.write(" : " + msg + "\n");
+            out.flush();
+        }
+/*
+	public static void main(String host, int port, String username , ChatFrontController cf) {
+            
 		String host = "0.0.0.0";
 		int port = 8080;
-		if (args.length < 2) {
+		if (args.length < 4) {
 		   System.out.println("Now using host=" + host + ", portNumber=" + port);
 		} else {
+                    
 		   host = args[0];
+                   String username = args[2];
+                   ChatFrontController cf;
+                   cf = (ChatFrontController) args[3];
 		   port = Integer.valueOf(args[1]).intValue();
 		   System.out.println("Now using host=" + host + ", portNumber=" + port);
+
 		}
 		
-		new Client(host, port);
+		new Client(host, port, username, cf);
 	}
+        */
+
 
 	@Override
 	public void run() {
@@ -98,6 +130,7 @@ public class Client implements Runnable {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;

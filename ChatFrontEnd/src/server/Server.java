@@ -31,6 +31,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import channels.Channel;
+import chatfrontend.ChatFrontController;
+import javafx.event.ActionEvent;
 import user.User;
 
 
@@ -47,6 +49,7 @@ public class Server {
     Channel userChannel;
     BufferedReader in;
 
+    
     public ClientHandler(Socket s, Channel ch) {
       try {
         clientSocket = s;
@@ -394,6 +397,7 @@ public class Server {
 
     try {
       ss = new ServerSocket(port);
+      ChatFrontController cf;
       System.out.println("Server is listening on: " +
           ss.getLocalSocketAddress());
       defaultChannel = new Channel("default");
@@ -401,6 +405,7 @@ public class Server {
       channelList.add(defaultChannel);
 
       while(true) {
+        cf = new ChatFrontController();
         clientSocket = ss.accept();
         Thread t = new Thread(new ClientHandler(clientSocket, defaultChannel));
         t.start();

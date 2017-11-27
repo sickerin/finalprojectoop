@@ -20,7 +20,7 @@ public class ChatFrontEnd extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ChatFront.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("loginpage2.fxml"));
                 
         Scene scene = new Scene(root);
         stage.setScene(scene);

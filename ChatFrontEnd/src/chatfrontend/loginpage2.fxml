@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="login.Loginpage2Controller">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.Loginpage2Controller">
    <children>
       <ImageView fitHeight="407.0" fitWidth="607.0" layoutX="-4.0" layoutY="-5.0">
          <image>
@@ -21,7 +20,7 @@
             <Font name="Courier Bold" size="48.0" />
          </font>
       </Label>
-      <TextField layoutX="172.0" layoutY="199.0" opacity="0.46" prefHeight="27.0" prefWidth="187.0" promptText="Enter USername...button" />
+      <TextField fx:id="usernameField" layoutX="172.0" layoutY="199.0" opacity="0.46" prefHeight="27.0" prefWidth="187.0" promptText="Enter Username..." />
       <Button fx:id="btnUsername" layoutX="395.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnUsernameListener" text="GO!" />
    </children>
 </AnchorPane>

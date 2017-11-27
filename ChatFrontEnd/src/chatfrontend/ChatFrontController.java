@@ -17,6 +17,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 
+import server.Server;
+import channels.Channel;
+import user.User;
+import client.Client;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  *
  * @author Daniel and Nitya
@@ -65,6 +72,7 @@ public class ChatFrontController implements Initializable {
 
     @FXML
     private JFXCheckBox chkMemeify;
+    private JFXTextArea messageArea;
 
        
     @FXML
@@ -79,15 +87,7 @@ public class ChatFrontController implements Initializable {
     }
     
     //This
-    @FXML public void sendBtnAction() {
-            System.out.println("hi");
-            String content = txtMessageBox.getText();
-            if(!content.isEmpty()){
-//                  need to add code to send message to server.
-                    txtMessageBox.clear();
-                    displayMyMessges(content);
-            }
-	}
+
     
     @FXML
     private void addGroup(ActionEvent event){
@@ -107,4 +107,24 @@ public class ChatFrontController implements Initializable {
         listChatArea.getItems().add(new Label(content));
     }
     
+    private void sendBtnAction(ActionEvent event)
+    {
+       String message = txtMessageBox.getText();
+       if (!message.isEmpty())
+       {
+           Client.send(message);
+           messageArea.appendText(message);
+           txtMessageBox.clear();
+           
+       }
+       
+       else if (message.isEmpty())
+       {
+           Alert alert = new Alert(AlertType.INFORMATION);
+           alert.setTitle("Error");
+           alert.setHeaderText("No message found");
+           alert.setContentText("Please enter a message before pressing enter");
+           
+       }
+    }
 }
