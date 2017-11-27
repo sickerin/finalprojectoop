@@ -19,7 +19,7 @@ import javafx.stage.*;
 
 /**
  *
- * @author Daniel
+ * @author Daniel and Nitya
  */
 public class ChatFrontController implements Initializable {
 

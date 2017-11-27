@@ -5,6 +5,8 @@
  */
 package chatfrontend;
 
+import client.Client;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -65,9 +67,14 @@ private JFXTextField usernameField;
         // TODO
     }    
 
-//    @FXML
-//    private String btnUsernameListener(MouseEvent event) throws IOException {
-//        String username = usernameField.getText();
+    @FXML
+    private String btnUsernameListener(MouseEvent event) throws IOException {
+       String username = usernameField.getText();
+       Client client = new Client("0.0.0.0", 8080);
+       
+       
+       
+       
 //        Parent chatPage = FXMLLoader.load(getClass().getResource("ChatFront.fxml"));
 //        Scene chatScene = new Scene(chatPage);
 //        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -75,6 +82,6 @@ private JFXTextField usernameField;
 //        appStage.hide();
 //        appStage.setScene(chatScene);
 //        appStage.show();
-//        return username;
-//    }
+        return username;
+    }
 }
