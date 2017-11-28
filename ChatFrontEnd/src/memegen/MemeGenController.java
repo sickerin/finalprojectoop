@@ -63,45 +63,69 @@ import javax.imageio.ImageIO;
  * @author sickerin
  */
 public class MemeGenController implements Initializable {
-        
-    @FXML
-    private AnchorPane mainAnchorPane;
-    
+ 
+    /**
+     * StackPane that holds the entire Meme Generator
+     */
     @FXML
     private StackPane mainStackPane;
     
-    @FXML
-    private JFXButton memeChooser;
 
+    /**
+     * JFXTextField that allows user to type their desired caption
+     */
     @FXML
     private JFXTextField captionTextField;
-
-    @FXML
-    private JFXButton createlabelButton;
-
-    @FXML
-    private JFXButton creatememeButton;
-
+    
+    /**
+     * Pane that acts as a canvas to design the Meme
+     */
     @FXML
     private Pane memePane;
-    
-    @FXML
-    private JFXButton memeselectorButton;
-    
-    @FXML
-    private JFXButton deletetxtButton;
- 
+       
+   
+    /**
+     * ImageView that holds the desired Meme Template or Image Background
+     */
     @FXML
     private ImageView memeImageView;
     
+    /**
+     * Label that holds the current or selected caption.
+     */
     private Label currentLabel;
     
+    /**
+     * Image to help get the default meme templates
+     */
     private Image memetemplate;
     
-    private double orgSceneX, orgSceneY;
+    /**
+     * Current position in X axis.
+     */
+    private double orgSceneX;
     
-    private double orgTranslateX, orgTranslateY;
     
+    /**
+     * Current position in Y axis.
+     */
+    private double orgSceneY;
+    
+    /**
+     * Desired translation in X axis.
+     */
+    private double orgTranslateX;
+    
+    /**
+     * Desired translation in Y axis.
+     */
+    private double orgTranslateY;
+    
+    /**
+     * Listener for the deletetxtButton
+     * Allows the user to delete unwanted captions.
+     * @param event ActionEvent
+     */
     @FXML
     void deletetxtButtonListener(ActionEvent event) {
          
@@ -126,7 +150,11 @@ public class MemeGenController implements Initializable {
         }
     }
 
-    
+    /**
+     * Listener for the captionField. 
+     * Allows user top type in the JFXTextField and press enter to create caption.
+     * @param event 
+     */
     @FXML
     void captionFieldListener(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -134,12 +162,19 @@ public class MemeGenController implements Initializable {
         }
     }
     
-    
+    /**
+     * Listener for the createlabelButton.
+     * Creates a caption for the meme and is displayed on the memePane.
+     * @param event ActionEvent
+     */
     @FXML
     void createlabelButtonListener(ActionEvent event) {
         createlabelButton();
     } 
     
+    /**
+     * Method to create a caption in the memePane
+     */
     public void createlabelButton(){
         Label txt = new Label(captionTextField.getText());        
         
@@ -199,7 +234,13 @@ public class MemeGenController implements Initializable {
        
     }
     
-    
+    /**
+     * Method to to prevent user from dragging caption outside the memePane.
+     * @param childBounds bounds of child object.
+     * @param newX the dragged change in X.
+     * @param newY the dragged change in Y.
+     * @return 
+     */
     private boolean outSideParentBounds( Bounds childBounds, double newX, double newY) {
         
         Bounds parentBounds = this.memePane.getLayoutBounds();
@@ -226,6 +267,10 @@ public class MemeGenController implements Initializable {
         return false;
     }
     
+    /**
+     * Method to center the image in the memePane
+     * @param imageview ImageView that holds the selected image.
+     */
     public void centerImage(ImageView imageview) {
         Image img = imageview.getImage();
         if (img != null) {
@@ -250,7 +295,12 @@ public class MemeGenController implements Initializable {
         }
     }
     
-
+    /**
+     * Listener for memechooserButton
+     * Opens FileChooser to allow user to upload a custom meme template.
+     * @param event ActionEvent
+     * @throws FileNotFoundException 
+     */
     @FXML
     private void memechooserButtonListener(ActionEvent event) throws FileNotFoundException {
         
@@ -268,7 +318,12 @@ public class MemeGenController implements Initializable {
     }
     
   
-    
+    /**
+     * Listener for creatememeButton
+     * (To be changed so that it directly puts it into the chat)
+     * Opens FileChooser to allow user to save completed meme.
+     * @param event ActionEvent
+     */
     @FXML
     private void creatememeButtonListener(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -293,6 +348,12 @@ public class MemeGenController implements Initializable {
             }
     }
     
+    /**
+     * Listener for memeselectorButton 
+     * Opens a dialog box, that allows user to choose some default meme templates
+     * @param event ActionEvent
+     * @throws IOException 
+     */
     @FXML
     void memeselectorButtonListener(ActionEvent event) throws IOException {
         
@@ -375,7 +436,12 @@ public class MemeGenController implements Initializable {
         
     }
     
-    //Code May Not Work 
+    /**
+     * Code to allow Delete caption by ENTER key
+     * (CODE MAY NOT WORK)
+     * @param event KeyEvent
+     * @deprecated 
+     */
     @FXML
     void memePaneListener(KeyEvent event) {
         if (event.getCode().equals(KeyCode.DELETE)) {
