@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 28, 2017, 12:21:45 PM
+    Author     : Daniel
+*/
+  
+.label {
+    -fx-font: 35px Impact;
+}
+
+.outline.label .text {
+    -fx-fill: #fff;
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+
