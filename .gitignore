@@ -100,3 +100,5 @@
 .metadata/.mylyn/.taskListIndex/write.lock
 .metadata/.mylyn/.taskListIndex/segments_1
 .metadata/.lock
+/ChatFrontEnd/dist/
+/SignInPage/nbproject/private/

@@ -7,9 +7,9 @@ and open the template in the editor.
     Created on : Nov 22, 2017, 10:16:09 PM
     Author     : Daniel
 */
-
+/* -------------------------ListGroup-------------------------*/
 .jfx-list-cell:selected {
-    -fx-background-color: RED;
+    -fx-background-color: #19B5FE;
 }
 
 .jfx-list-cell {
@@ -23,3 +23,10 @@ and open the template in the editor.
 .jfx-list-cell:hover{
     -fx-background-color: #29f8ff
 }
+
+/*.jfx-list-view {
+    -fx-background-insets: 0;
+    -fx-cell-vertical-margin: 10.0;
+    -fx-vertical-gap: 10;
+    -fx-pref-width:150;
+}*/

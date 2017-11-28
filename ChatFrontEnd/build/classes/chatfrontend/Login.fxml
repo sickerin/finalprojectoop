@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="401.0" prefWidth="972.0" style="-fx-background-color: rgba(0, 0, 0, 0);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginpage.LoginController">
+   <children>
+      <AnchorPane layoutY="35.0" prefHeight="365.0" prefWidth="973.0" style="-fx-background-color: #fff; -fx-background-radius: 3em;">
+         <children>
+            <JFXButton fx:id="btnLogin" layoutX="26.0" layoutY="158.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="122.0" text="Login" />
+            <JFXButton fx:id="btnRegister" layoutX="26.0" layoutY="201.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="122.0" text="Register" />
+            <AnchorPane fx:id="pnRegister" layoutX="545.0" prefHeight="401.0" prefWidth="427.0" style="-fx-background-color: #fff; -fx-background-radius: 3em;">
+               <children>
+                  <FontAwesomeIconView fill="#19b5fe" glyphName="CHEVRON_CIRCLE_RIGHT" layoutX="199.0" layoutY="330.0" size="35" />
+                  <JFXPasswordField layoutX="64.0" layoutY="222.0" prefHeight="40.0" prefWidth="300.0" promptText="confirm password" />
+                  <JFXTextField layoutX="64.0" layoutY="88.0" prefHeight="40.0" prefWidth="300.0" promptText="username" text="username" />
+                  <JFXPasswordField layoutX="64.0" layoutY="153.0" prefHeight="40.0" prefWidth="300.0" promptText="password" />
+                  <Label layoutX="156.0" layoutY="35.0" text="Register" textFill="#19b5fe">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pnLogin" layoutX="544.0" prefHeight="401.0" prefWidth="427.0" style="-fx-background-color: #fff; -fx-background-radius: 3em;">
+               <children>
+                  <Label layoutX="185.0" layoutY="39.0" text="Login" textFill="#19b5fe">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton contentDisplay="GRAPHIC_ONLY" text="Button" />
+                  <FontAwesomeIconView fx:id="btnUsernameListener" fill="#19b5fe" glyphName="CHEVRON_CIRCLE_RIGHT" layoutX="199.0" layoutY="311.0" onMouseClicked="#btnUsernameListener" size="35" />
+                  <JFXPasswordField layoutX="64.0" layoutY="181.0" prefHeight="40.0" prefWidth="300.0" promptText="password" />
+                  <JFXTextField fx:id="usernameField" layoutX="64.0" layoutY="100.0" prefHeight="40.0" prefWidth="300.0" promptText="username" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="168.0" prefHeight="504.0" prefWidth="378.0" style="-fx-background-color: #19B5FE;">
+         <children>
+            <Label alignment="CENTER" layoutX="63.0" layoutY="326.0" prefHeight="59.0" prefWidth="252.0" text="Welcome to SwingChat" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="252.0" fitWidth="252.0" layoutX="63.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Icon/White%20Logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
