@@ -7,8 +7,10 @@ package chatfrontend;
 
 import com.jfoenix.controls.*;
 import com.vdurmont.emoji.EmojiManager;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
+import javafx.util.Duration;
 
 /**
  *
@@ -97,14 +100,21 @@ public class ChatFrontController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-//        pn_emoji.
-//        EmojiManager em = new EmojiManager();
-//        
+        pnMain.setOpacity(0);
+        makeFadeInTransition();
     }    
 
     private void displayMyMessges(String content) {
         listChatArea.getItems().add(new Label(content));
+    }
+
+    private void makeFadeInTransition() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(1000));
+        fadeTransition.setNode(pnMain);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
     
 }

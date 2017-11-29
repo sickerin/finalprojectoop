@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -71,9 +72,13 @@
                               </Tab>
                            </tabs>
                         </JFXTabPane>
-                        <JFXTextArea fx:id="txtMessageBox" layoutY="153.0" prefHeight="116.0" prefWidth="456.0" style="-fx-padding: 3;" />
-                        <JFXButton fx:id="btnSend" buttonType="RAISED" layoutX="463.0" layoutY="229.0" onAction="#sendBtnAction" style="-fx-background-color: #4183D7;" text="SEND" />
+                        <JFXTextArea fx:id="txtMessageBox" layoutX="25.0" layoutY="200.0" prefHeight="62.0" prefWidth="456.0" style="-fx-padding: 3;" />
                         <JFXCheckBox fx:id="chkMemeify" checkedColor="#19b5fe" contentDisplay="TOP" layoutX="453.0" layoutY="202.0" onAction="#handleButtonAction" prefHeight="18.0" prefWidth="75.0" text="Memeify" textAlignment="CENTER" />
+                        <JFXButton fx:id="btnSend" contentDisplay="GRAPHIC_ONLY" layoutX="481.0" layoutY="231.0" onAction="#sendBtnAction">
+                           <graphic>
+                              <MaterialDesignIconView fill="#0080ff" glyphName="SEND" size="24" />
+                           </graphic>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
                </children>

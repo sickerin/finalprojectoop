@@ -183,10 +183,11 @@ public class MemeGenController implements Initializable {
         
         //CSS Code to Make the Font Meme like
         txt.getStyleClass().add("outline");
-        
+        txt.setAlignment(Pos.CENTER);
         //Add Caption to memePane
         memePane.getChildren().add(txt);
         
+    
         
         
         //Highlights the Caption, and changes Cursor.
