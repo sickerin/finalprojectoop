@@ -26,7 +26,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Pane>
-            <JFXButton fx:id="memechooserButton" layoutX="37.0" layoutY="135.0" onAction="#memechooserButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Upload Image">
+            <JFXButton fx:id="uploadimageButton" layoutX="37.0" layoutY="135.0" onAction="#uploadimageButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Upload Image">
                <font>
                   <Font size="15.0" />
                </font>

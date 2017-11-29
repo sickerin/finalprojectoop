@@ -50,6 +50,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -57,6 +58,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import swingchatfrontend.ChatPageController;
 
 /**
  *
@@ -120,6 +122,35 @@ public class MemeGenController implements Initializable {
      * Desired translation in Y axis.
      */
     private double orgTranslateY;
+    
+    
+    /**
+     * Meme image to send to ChatScreen
+     */
+    private RenderedImage sendmemeImage;
+    
+    /**
+     * Controller object for ChatPage
+     */
+    private ChatPageController chatPageController;
+    
+    /**
+     * Getter for ChatPageControlelr
+     * @return current chatpage
+     */
+    public ChatPageController getChatPageController() {
+        return chatPageController;
+    }
+    
+    /**
+     * Setter for ChatPageControlelr
+     * @param chatPageController current chatpage
+     */
+    public void setChatPageController(ChatPageController chatPageController) {
+        this.chatPageController = chatPageController;
+    }
+    
+    
     
     /**
      * Listener for the deletetxtButton
@@ -297,13 +328,13 @@ public class MemeGenController implements Initializable {
     }
     
     /**
-     * Listener for memechooserButton
+     * Listener for uploadimageButton
      * Opens FileChooser to allow user to upload a custom meme template.
      * @param event ActionEvent
      * @throws FileNotFoundException 
      */
     @FXML
-    private void memechooserButtonListener(ActionEvent event) throws FileNotFoundException {
+    private void uploadimageButtonListener(ActionEvent event) throws FileNotFoundException {
         
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
@@ -326,7 +357,7 @@ public class MemeGenController implements Initializable {
      * @param event ActionEvent
      */
     @FXML
-    private void creatememeButtonListener(ActionEvent event) {
+    private void creatememeButtonListener(ActionEvent event) {  
         FileChooser fileChooser = new FileChooser();
         
         //Set extension filter
@@ -343,6 +374,27 @@ public class MemeGenController implements Initializable {
                 //Snapshot of the Memepane to save.
                 memePane.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                
+                //Code to directly display image; not working!!!
+////                Meme Image to send
+//                System.out.println("1");
+//                this.sendmemeImage = renderedImage;
+//                System.out.println("2");
+//                VBox vb = new VBox();
+//                System.out.println("3");
+//                ImageView pic = new ImageView((Image) renderedImage);
+//                System.out.println("4");
+//                pic.setFitHeight(150);
+//                System.out.println("5");
+//                pic.setPreserveRatio(true);
+//                System.out.println("6");
+//                vb.getChildren().add(pic);
+//                System.out.println("7");
+//                this.chatPageController.getImagesScrollPane().setContent(vb);
+//                System.out.println("8");
+//                this.chatPageController.getImagesScrollPane().setFitToWidth(true);
+//                        
+                
                 //Write the snapshot to the chosen file
                 ImageIO.write(renderedImage, "png", file);
                 } catch (IOException ex) { ex.printStackTrace(); }
