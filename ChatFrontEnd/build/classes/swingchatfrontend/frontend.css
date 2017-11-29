@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29 Nov, 2017, 4:49:48 PM
+    Author     : student
+*/
+
+@font-face {
+    font-family: 'OpenSansEmoji';
+    src: url('OpenSansEmoji.ttf');
+}
+
+.text-field {
+    -fx-font-family: OpenSansEmoji;
+    -fx-font-size: 32;
+}

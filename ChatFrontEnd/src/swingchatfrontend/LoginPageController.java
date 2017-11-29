@@ -113,7 +113,7 @@ public class LoginPageController implements Initializable {
 
             Scene newScene = new Scene(fr);
             Stage currentStage = (Stage) loginpagePane.getScene().getWindow();
-            currentStage.setScene(newScene);                   
+            currentStage.setScene(newScene);
         } catch (IOException ex) {
             Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
         }

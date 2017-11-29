@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="299.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="swingchatfrontend.PopupAddChatController">
+   <children>
+      <Label layoutX="108.0" layoutY="30.0" text="Users Online">
+         <font>
+            <Font name="Courier" size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnNewChat" layoutX="158.0" layoutY="258.0" mnemonicParsing="false" onAction="#actionAddChat" prefHeight="27.0" prefWidth="96.0" style="-fx-background-color: rgb(60,90,150);" text="Add User" textFill="WHITE">
+         <font>
+            <Font name="Courier Bold" size="13.0" />
+         </font></Button>
+      <ListView fx:id="primaryChatList" layoutX="30.0" layoutY="57.0" prefHeight="200.0" prefWidth="352.0" />
+   </children>
+</AnchorPane>

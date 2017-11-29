@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,6 +33,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import memegen.MemeGenController;
 import user.User;
@@ -78,7 +80,11 @@ public class ChatPageController implements Initializable {
     private ImageView myImageView;
 
     @FXML
-    private GridPane gridPaneImages;
+    private GridPane gridPaneImages
+    
+    @FXML
+    private TextFlow outputmessageTextFlow;
+
 
     //protected String username;
     private Stage stage;
@@ -132,7 +138,19 @@ public class ChatPageController implements Initializable {
     }
 
     @FXML
-    private void emojiImageViewMouseClicked(MouseEvent event) {
+    private void emojiImageViewMouseClicked(MouseEvent event) throws IOException {
+            stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/uz/emojione/fx/EmojiList.fxml"));
+            VBox fr = fxmlLoader.load();
+//            MemeGenController controller = (MemeGenController) fxmlLoader.getController();
+//
+//            //Sending current chatpagecontroller to memegencontroller.
+//            controller.setChatPageController(this);
+
+            scene = new Scene(fr,392, 300);
+            stage.setScene(scene);
+            stage.show();
 
     }
 
@@ -156,6 +174,7 @@ public class ChatPageController implements Initializable {
                 "/memegen/memestyles.css"
         ).toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Meme Generator");
         stage.show();
 
     
@@ -174,6 +193,7 @@ public class ChatPageController implements Initializable {
 
         scene = new Scene(fr);
         stage.setScene(scene);
+        stage.setTitle("Memel Popup");
         PopupAddChatController popCon;
         popCon = new PopupAddChatController();
         stage.show();
