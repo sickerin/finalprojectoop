@@ -17,18 +17,36 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author student
+ * @author nitya, sickerin
  */
 public class PopupAddChatController implements Initializable {
-
+    
+    /**
+     * textfield to add a chat name
+     */
     @FXML
     private TextField textFieldAddChat;
+    
+    /**
+     * button action to enter the textfield 
+     */
     @FXML
     private Button btnNewChat;
+    
+    /**
+     * chatname instantiation
+     */
     protected String chatName;
+    
+    /**
+     * this is the initial list
+     */
     @FXML
     private ListView<?> primaryChatList;
     
+    /**
+     * another list for the popupAddController to refer to 
+     */
     ListView<String> firstChatList;
 
     /**
@@ -38,7 +56,11 @@ public class PopupAddChatController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
+    /**
+     * @deprecated 
+     * @param event event
+     */
     @FXML
     private void actionAddChat(ActionEvent event) {
 //        firstChatList.getItems().add(primaryChatList.getSelectionModel().getSelectedItem());

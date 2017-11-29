@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane id="AnchorPane" fx:id="chatpagePane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="swingchatfrontend.ChatPageController">
    <children>
@@ -26,7 +28,7 @@
             </TextField>
          </children>
       </AnchorPane>
-      <ListView fx:id="memelList" layoutY="41.0" prefHeight="625.0" prefWidth="182.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" />
+      <ListView fx:id="memelList" layoutY="40.0" prefHeight="625.0" prefWidth="182.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" />
       <AnchorPane fx:id="imagesPane" layoutX="835.0" layoutY="41.0" prefHeight="625.0" prefWidth="250.0">
          <children>
             <ScrollPane fx:id="imagesScrollPane" prefHeight="625.0" prefWidth="250.0" />
@@ -34,11 +36,6 @@
       <AnchorPane layoutY="665.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1084.0" style="-fx-background-color: white;">
          <children>
             <TextArea fx:id="inputmessageTextArea" layoutX="183.0" layoutY="11.0" minHeight="30.0" prefHeight="30.0" prefWidth="653.0" />
-            <ImageView fx:id="emojiImageView" fitHeight="26.0" fitWidth="26.0" layoutX="120.0" layoutY="15.0" onMouseClicked="#emojiImageViewMouseClicked" AnchorPane.bottomAnchor="14.0">
-               <image>
-                  <Image url="@../images/others/smiley.jpg" />
-               </image>
-            </ImageView>
             <Button fx:id="memegenButton" layoutX="947.0" layoutY="15.0" mnemonicParsing="false" onAction="#memegenButtonListener" prefHeight="27.0" prefWidth="104.0" style="-fx-background-color: rgb(60,90,150);" text="MemeMaker" textFill="WHITE" AnchorPane.bottomAnchor="13.0">
                <font>
                   <Font name="Courier" size="13.0" />
@@ -49,8 +46,18 @@
                <graphic>
                   <MaterialDesignIconView glyphName="UPLOAD" size="18" />
                </graphic></Button>
+            <JFXButton fx:id="emojiButton" contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="11.0" onAction="#emojiButtonListener" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fx:id="emojiImageView" fitHeight="26.0" fitWidth="26.0">
+                     <image>
+                        <Image url="@../images/others/smiley.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
-      <TextArea fx:id="outputmessageTextArea" layoutX="182.0" layoutY="41.0" prefHeight="625.0" prefWidth="653.0" />
+      <TextArea fx:id="outputmessageTextArea" editable="false" layoutX="182.0" layoutY="41.0" prefHeight="625.0" prefWidth="653.0" />
+      <TextFlow fx:id="outputmessageTextFlow" layoutX="182.0" layoutY="40.0" prefHeight="625.0" prefWidth="653.0" />
    </children>
 </AnchorPane>

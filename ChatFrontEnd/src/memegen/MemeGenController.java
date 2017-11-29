@@ -418,15 +418,16 @@ public class MemeGenController implements Initializable {
         System.out.println("IF YOU SEE THIS AND IT DOESN'T RUN, it's likely an issue in memeselectorButtonListener. The error is wrong file path for default memes");
         
         //Create directory of Meme folder to access all the Templates.
-        File  directory = new File("src/meme");
+        File  directory = new File("resources/meme");
         
         //For each Meme Template, show them in the MemeScrollPane
         for (File file : directory.listFiles())
         {
             if(file.getName().toLowerCase().endsWith(".jpg"))
             {
-                //The code below for getResourceAsStream might need to changed.
-                Image meme = new Image(getClass().getResourceAsStream("/meme/"+file.getName()));
+                
+                //Get Meme Templates
+                Image meme = new Image(file.toURI().toURL().toExternalForm());
                 ImageView pic = new ImageView(meme);
                 pic.setFitHeight(150);
                 pic.setPreserveRatio(true);

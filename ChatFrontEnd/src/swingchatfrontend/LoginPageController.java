@@ -31,26 +31,38 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author student
+ * @author nitya, sickerin
+ * @version 29 Nov 2017
  */
 public class LoginPageController implements Initializable {
     
+     /**
+     * previous stage used for the switch of scenes
+     */
     Stage prevStage;
     
+    /**
+     * anchor pane for the login screen
+     */
     @FXML
     private AnchorPane loginpagePane;
 
+    /**
+     * textfield for the username to be inputted
+     */
     @FXML
     private JFXTextField usernameTextField;
     
+     /**
+     * button to enter the main chat page
+     */
     @FXML
     private JFXButton loginButton;
    
+    /**
+     * stores current username
+     */
     protected String username;
-   
-    private Stage stage;
-    private Scene scene;
-    private ChatPageController cpController;
     
 
     /**
@@ -61,23 +73,39 @@ public class LoginPageController implements Initializable {
         // TODO
     }    
 
+    /**
+     * calls the login method
+     * @param event ActionEvent
+     * @throws IOException 
+     */ 
     @FXML
     private void loginButtonListener(ActionEvent event) throws IOException {
         login();
     }
     
     
-    
+    /**
+     * retrieves the username
+     * @return username
+     */
     public String getUsername()
     {
         return this.usernameTextField.getText();
     }
     
+    /**
+     * sets the username
+     * @param _username username
+     */
     public void setUsername(String _username)
     {
         this.username = _username;
     }
     
+     /**
+     * action method to enter the chat page when the enter key is pressed
+     * @param event KeyEvent
+     */
     @FXML
     void usernameTextFieldKeyPressed(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -85,6 +113,10 @@ public class LoginPageController implements Initializable {
         }
     }
     
+
+     /**
+     * fade effects
+     */
     private void makeFadeOutTransition() {
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(1000));
@@ -97,14 +129,12 @@ public class LoginPageController implements Initializable {
         fadeTransition.play();
     }
     
+    /**
+     * goes to the next scene: the chat page
+     */    
     private void loadNextScene() {
         
-        try {
-//            Parent frontView;
-//            frontView = (AnchorPane) FXMLLoader.load(getClass().getResource("ChatPage.fxml"));
-//            Scene newScene = new Scene (frontView);
-            
-            
+        try {           
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("ChatPage.fxml"));
             AnchorPane fr = fxmlLoader.load();
@@ -118,16 +148,19 @@ public class LoginPageController implements Initializable {
             Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /** 
+     * logs in, transition front login page to chatpage
+     */
     private void login() {
         this.username = usernameTextField.getText().trim();
         if (this.username.length() == 0)
         {
+            this.usernameTextField.getStyleClass().add("wrong-credentials");
             return;
             //need a popup here if possible
         }
         makeFadeOutTransition();
-    
     }
     
 }

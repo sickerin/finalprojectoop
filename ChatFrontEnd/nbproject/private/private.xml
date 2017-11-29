@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/chatfrontend/LoginController.java</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/chatfrontend/ChatFrontController.java</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/memegen/MemeGenController.java</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/chatfrontend/Login.java</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/memegen/MemeGen.fxml</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/chatfrontend/ChatFront.fxml</file>
-            <file>file:/C:/Users/Dan/Documents/finalprojectoop/ChatFrontEnd/src/memegen/MemeGen.java</file>
+            <file>file:/C:/Users/Daniel/Documents/finalprojectoop/ChatFrontEnd/src/swingchatfrontend/Main.java</file>
+            <file>file:/C:/Users/Daniel/Documents/finalprojectoop/ChatFrontEnd/src/swingchatfrontend/LoginPageController.java</file>
+            <file>file:/C:/Users/Daniel/Documents/finalprojectoop/ChatFrontEnd/src/swingchatfrontend/PopupAddChatController.java</file>
+            <file>file:/C:/Users/Daniel/Documents/finalprojectoop/ChatFrontEnd/src/swingchatfrontend/ChatPageController.java</file>
         </group>
     </open-files>
 </project-private>

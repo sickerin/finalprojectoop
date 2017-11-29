@@ -17,3 +17,8 @@ and open the template in the editor.
     -fx-font-family: OpenSansEmoji;
     -fx-font-size: 32;
 }
+
+.wrong-credentials {
+    -jfx-unfocus-color: -fx-red;
+    -jfx-focus-color: -fx-red;
+}
