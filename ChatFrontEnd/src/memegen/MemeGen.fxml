@@ -28,27 +28,27 @@
             </Pane>
             <JFXButton fx:id="memechooserButton" layoutX="37.0" layoutY="135.0" onAction="#memechooserButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Upload Image">
                <font>
-                  <Font name="Dosis Regular" size="18.0" />
+                  <Font name="Dosis-Regular" size="18.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="createlabelButton" layoutX="585.0" layoutY="429.0" onAction="#createlabelButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Create TextBox">
                <font>
-                  <Font name="Dosis Regular" size="18.0" />
+                  <Font name="Dosis-Regular" size="18.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="creatememeButton" layoutX="40.0" layoutY="246.0" onAction="#creatememeButtonListener" prefWidth="135.0" style="-fx-background-color: #8E44AD;" text="Create Meme" textFill="WHITE">
                <font>
-                  <Font name="Dosis Regular" size="18.0" />
+                  <Font name="Dosis-Regular" size="18.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="memeselectorButton" layoutX="35.0" layoutY="75.0" onAction="#memeselectorButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Meme Selector">
                <font>
-                  <Font name="Dosis Regular" size="18.0" />
+                  <Font name="Dosis-Regular" size="18.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="deletetxtButton" layoutX="40.0" layoutY="189.0" onAction="#deletetxtButtonListener" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3498DB;" text="Delete TextBox">
                <font>
-                  <Font name="Dosis Regular" size="18.0" />
+                  <Font name="Dosis-Regular" size="18.0" />
                </font>
             </JFXButton>
          </children>
